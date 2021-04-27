@@ -1,4 +1,6 @@
 const { Router } = require("express");
+const { check } = require("express-validator")
+
 
 const {
   userGet,
@@ -14,7 +16,12 @@ router.get("/", userGet);
 
 router.put("/:id", userPut);
 
-router.post("/", userPost);
+
+// vamos a poner un middeware que lo que hace es bloquear la ruta si falla algo 
+//  se manda como un arregle de midldlerawe en la seginda posicions
+router.post("/",[
+  check('correo', "EL correo no es valido").isEmail(), 
+], userPost);
 
 router.delete("/", userdelele);
 

@@ -1,18 +1,26 @@
 const express = require("express");
 const cors = require("cors");
+const { dbConnection} =  require("../database/config")
+
 
 class Server {
   constructor() {
     this.app = express();
     this.port = process.env.PORT;
-    // Middleware are function that allowed
+    // Middleware are function que se ejecuta antes de llamar a un controllador o seguri con ls solicitud e mis peticiones
     // Routes of me app
-
     this.userRoutePath = "/api/user"
 
+    this.connectDB();
 
+    // middlewares 
     this.middlewares();
+    // system routes
     this.routes();
+  }
+
+  async connectDB(){
+    await dbConnection();
   }
 
   middlewares() {
